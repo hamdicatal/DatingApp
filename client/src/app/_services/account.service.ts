@@ -10,7 +10,7 @@ export class AccountService {
 
   baseUrl = 'https://localhost:5001/api/';
   private currentUserSource = new ReplaySubject<User>(1); // like a buffer object. store values inside. emits last value inside.
-  currentuser$ = this.currentUserSource.asObservable();
+  currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
