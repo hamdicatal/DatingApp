@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { error } from 'protractor';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class NavComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit() {
+    this.getCurrentUser();
   }
 
   login()
@@ -27,7 +29,14 @@ export class NavComponent implements OnInit {
   }
 
   logout(){
-    this.loggedIn = false;
+    this.accountService.logout();
   }
 
+  getCurrentUser(){
+    this.accountService.currentuser$.subscribe(user => {
+      this.loggedIn = !!user; // !! turn our object to boolean -> null'sa false, değilse true
+    }, error => {
+      console.log(error);
+    })
+  }
 }
